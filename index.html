@@ -1,0 +1,46 @@
+<!doctype html>
+<html ng-app="todoApp">
+  <head>
+    <!--script js-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script> <!--angularJs-->
+
+    <script src="index.js"></script> <!--index js-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>   <!--item biblioteca jquery-->
+
+    <!--scripts css--> 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />  <!--bootstrap-->
+    <link rel="stylesheet" href="index.css"> <!--index css--> 
+  
+  </head>
+  <body>
+      <div class="container">
+    <h2>Tarefas</h2> <!--titulo-->
+    <div ng-controller="TodoListController as todoList">
+      <span>{{todoList.remaining()}} de {{todoList.todos.length}} restante</span> <!-- quantidade de tarefas-->
+      <ul id="tarefas" class="unstyled" contenteditable="true">   <!-- lista de tarefas -->
+        <li ng-repeat="todo in todoList.todos">  
+          <label class="checkbox">
+            <input type="checkbox" ng-model="todo.done">
+            <span class="done-{{todo.done}}">{{todo.text}}</span>
+          </label>
+        </li>
+      </ul>
+      <form ng-submit="todoList.addTodo()"> <!-- adicionar tarefas-->
+        <input type="text" ng-model="todoList.todoText"  size="30" 
+               placeholder="Adicione uma nova tarefa aqui"> <!--textfield-->
+        <input id="botao_add" class="btn btn-primary" type="submit" value="Adicionar"> <!--botao de add-->
+      </form>
+    </div>
+</div>
+<script>
+    $("#botao_add").click(function() { 
+    localStorage.setItem('tarefas', $("#tarefas").html());
+    });
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>
